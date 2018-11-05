@@ -1,39 +1,40 @@
 # encoding: utf8
 #
-# Copyright (C) 2018 ycmd contributors
+# Copyright (C) 2018 protoycmd contributors
 #
-# This file is part of YouCompleteMe.#
-# YouCompleteMe is free software: you can redistribute it and/or modify
+# This file is part of protoycmd.
+#
+# protoycmd is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# YouCompleteMe is distributed in the hope that it will be useful,
+# protoycmd is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with YouCompleteMe.  If not, see <http://www.gnu.org/licenses/>.
+# along with protoycmd.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 from __future__ import print_function
 from __future__ import division
 from __future__ import absolute_import
 # Not installing aliases from python-future; it's unreliable and slow.
-from builtins import * # noqa
+from builtins import *  # noqa
 
 from future.utils import iteritems
-from protoycmd.utils import ( ByteOffsetToCodepointOffset,
-                    CodepointOffsetToByteOffset,
-                    HashableDict,
-                    ToBytes,
-                    ToUnicode,
-                    SplitLines )
-from protoycmd.request_validation import EnsureRequestValid
-from protoycmd.identifier_utils import StartOfLongestIdentifierEndingAtIndex
-import logging
 
+from protoycmd.utils import ( ByteOffsetToCodepointOffset,
+                              CodepointOffsetToByteOffset,
+                              HashableDict,
+                              ToUnicode,
+                              ToBytes,
+                              SplitLines )
+from protoycmd.identifier_utils import StartOfLongestIdentifierEndingAtIndex
+from protoycmd.request_validation import EnsureRequestValid
+import logging
 _logger = logging.getLogger( __name__ )
 
 
@@ -239,7 +240,7 @@ class RequestWrap( object ):
   def _FirstFiletype( self ):
     try:
       return self[ 'filetypes' ][ 0 ]
-    except (KeyError, IndexError):
+    except ( KeyError, IndexError ):
       return None
 
 

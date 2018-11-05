@@ -1,25 +1,26 @@
-# Copyright (C) 2018 ycmd contributors
+# Copyright (C) 2018 protoycmd contributors
 #
-# This file is part of YouCompleteMe.#
-# YouCompleteMe is free software: you can redistribute it and/or modify
+# This file is part of protoycmd.
+#
+# protoycmd is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# YouCompleteMe is distributed in the hope that it will be useful,
+# protoycmd is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with YouCompleteMe.  If not, see <http://www.gnu.org/licenses/>.
+# along with protoycmd.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
 from __future__ import print_function
 from __future__ import division
 from __future__ import absolute_import
 # Not installing aliases from python-future; it's unreliable and slow.
-from builtins import * # noqa
+from builtins import *  # noqa
 
 from protoycmd.responses import ServerError
 
@@ -43,6 +44,10 @@ def _FieldMissingMessage( field ):
   return 'Request missing required field: {0}'.format( field )
 
 
+def _FilepathInFileDataSpec( request_json ):
+  return 'file_data["{0}"]'.format( request_json[ 'filepath' ] )
+
+
 def _SingleFileDataFieldSpec( request_json, field ):
   return '{0}["{1}"]'.format( _FilepathInFileDataSpec( request_json ), field )
 
@@ -62,7 +67,3 @@ def _MissingFieldsForFileData( request_json ):
   else:
     missing.add( _FilepathInFileDataSpec( request_json ) )
   return missing
-
-
-def _FilepathInFileDataSpec( request_json ):
-  return 'file_data["{0}"]'.format( request_json[ 'filepath' ] )

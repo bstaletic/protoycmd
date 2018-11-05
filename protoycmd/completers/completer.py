@@ -24,9 +24,11 @@ from builtins import * # noqa
 
 import abc
 import threading
-import protoycmd.completer_utils
+from protoycmd.completers import completer_utils
 from protoycmd.responses import NoDiagnosticSupport
 from future.utils import with_metaclass
+
+NO_USER_COMMANDS = 'This completer does not define any commands.'
 
 # Number of seconds to block before returning True in PollForMessages
 MESSAGE_POLL_TIMEOUT = 10
@@ -116,7 +118,7 @@ class Completer( with_metaclass( abc.ABCMeta, object ) ):
   "foo.bar", the user query is "bar" and completions matching this string should
   be shown. It should return the list of candidates.  The format of the result
   can be a list of strings or a more complicated list of dictionaries. Use
-  ycmd.responses.BuildCompletionData to build the detailed response. See
+  protoycmd.responses.BuildCompletionData to build the detailed response. See
   clang_completer.py to see how its used in practice.
 
   Again, you probably want to override ComputeCandidatesInner().
@@ -167,8 +169,10 @@ class Completer( with_metaclass( abc.ABCMeta, object ) ):
   def __init__( self, user_options ):
     self.user_options = user_options
     self.min_num_chars = user_options[ 'min_num_of_chars_for_completion' ]
+    self.max_diagnostics_to_display = user_options[
+        'max_diagnostics_to_display' ]
     self.prepared_triggers = (
-        protoycmd.completer_utils.PreparedTriggers(
+        completer_utils.PreparedTriggers(
             user_trigger_map = user_options[ 'semantic_triggers' ],
             filetype_set = set( self.SupportedFiletypes() ) )
         if user_options[ 'auto_trigger' ] else None )
@@ -302,7 +306,7 @@ class Completer( with_metaclass( abc.ABCMeta, object ) ):
 
 
   def FilterAndSortCandidatesInner( self, candidates, sort_property, query ):
-    return protoycmd.completer_utils.FilterAndSortCandidatesWrap(
+    return completer_utils.FilterAndSortCandidatesWrap(
       candidates, sort_property, query, self._max_candidates )
 
 
@@ -355,7 +359,7 @@ class Completer( with_metaclass( abc.ABCMeta, object ) ):
       if filetype in supported:
         return filetype
 
-    return filetypes[0]
+    return filetypes[ 0 ]
 
 
   @abc.abstractmethod
