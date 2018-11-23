@@ -73,10 +73,10 @@ class Completer( with_metaclass( abc.ABCMeta, object ) ):
      - request_data[ 'start_codepoint' ] and request_data[ 'column_codepoint' ].
 
     For converting between the two:
-     - utils.ToBytes
-     - utils.ByteOffsetToCodepointOffset
-     - utils.ToUnicode
-     - utils.CodepointOffsetToByteOffset
+     - protoutils.ToBytes
+     - protoutils.ByteOffsetToCodepointOffset
+     - protoutils.ToUnicode
+     - protoutils.CodepointOffsetToByteOffset
 
     Note: The above use of codepoints for 'character' manipulations is not
     strictly correct. There are unicode 'characters' which consume multiple

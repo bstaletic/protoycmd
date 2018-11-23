@@ -157,19 +157,6 @@ def _PrepareTrigger( trigger ):
   return re.compile( re.escape( trigger ), re.UNICODE )
 
 
-def _PathToCompletersFolder():
-  dir_of_current_script = os.path.dirname( os.path.abspath( __file__ ) )
-  return os.path.join( dir_of_current_script )
-
-
-def PathToFiletypeCompleterPluginLoader( filetype ):
-  return os.path.join( _PathToCompletersFolder(), filetype, 'hook.py' )
-
-
-def FiletypeCompleterExistsForFiletype( filetype ):
-  return os.path.exists( PathToFiletypeCompleterPluginLoader( filetype ) )
-
-
 def FilterAndSortCandidatesWrap( candidates, sort_property, query,
                                  max_candidates ):
   from ycm_core import FilterAndSortCandidates
