@@ -25,7 +25,6 @@ from builtins import *  # noqa
 # Must not import ycm_core here! Vim imports completer, which imports this file.
 # We don't want ycm_core inside Vim.
 import logging
-import os
 from collections import defaultdict
 from future.utils import iteritems
 from protoycmd.utils import ( ToCppStringCompatible, ToUnicode, re, ReadFile,
