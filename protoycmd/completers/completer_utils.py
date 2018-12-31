@@ -24,13 +24,14 @@ from builtins import *  # noqa
 
 # Must not import ycm_core here! Vim imports completer, which imports this file.
 # We don't want ycm_core inside Vim.
-import logging
 from collections import defaultdict
 from future.utils import iteritems
-from protoycmd.utils import ( ToCppStringCompatible, ToUnicode, re, ReadFile,
+from protoycmd.utils import ( LOGGER,
+                              ToCppStringCompatible,
+                              ToUnicode,
+                              re,
+                              ReadFile,
                               SplitLines )
-
-_logger = logging.getLogger( __name__ )
 
 
 class PreparedTriggers( object ):
@@ -224,7 +225,7 @@ def GetFileContents( request_data, filename ):
   try:
     return ToUnicode( ReadFile( filename ) )
   except IOError:
-    _logger.exception( 'Error reading file {}'.format( filename ) )
+    LOGGER.exception( 'Error reading file %s', filename )
     return ''
 
 
