@@ -593,9 +593,9 @@ def GetModificationTime( path ):
     return 0
 
 
-def ExpectedCoreVersion():
-  core_version = os.path.normpath( os.path.join( os.path.dirname( __file__ ),
-                                                 '..', 'CORE_VERSION' ) )
+def ExpectedCoreVersion( ycmd_root_dir ):
+  core_version = os.path.normpath( os.path.join( ycmd_root_dir,
+                                                 'CORE_VERSION' ) )
   return int( ReadFile( core_version ) )
 
 
@@ -606,7 +606,7 @@ def ImportCore():
   return ycm_core
 
 
-def CompatibleWithCurrentCore():
+def CompatibleWithCurrentCore( ycmd_root_dir ):
   """Checks if ycm_core library is compatible and returns with an exit
   status."""
   try:
@@ -631,7 +631,7 @@ def CompatibleWithCurrentCore():
     LOGGER.exception( CORE_OUTDATED_MESSAGE )
     return CORE_OUTDATED_STATUS
 
-  if ExpectedCoreVersion() != current_core_version:
+  if ExpectedCoreVersion( ycmd_root_dir ) != current_core_version:
     LOGGER.error( CORE_OUTDATED_MESSAGE )
     return CORE_OUTDATED_STATUS
 
